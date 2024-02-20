@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trello Power-Up with Shamsi Calendar</title>
+    <script src="https://p.trellocdn.com/power-up.min.js"></script>
+</head>
+<body>
+    <h1>Trello Power-Up</h1>
+    <script>
+        var t = TrelloPowerUp.iframe();
+
+        // Dummy function for converting Gregorian to Shamsi - Replace with actual conversion logic
+        function convertToShamsi(gregorianDate) {
+            // Assuming this function returns a Shamsi date as a string for demonstration
+            // In reality, you should use a date conversion library here
+            return "1400/01/01"; // Placeholder Shamsi date
+        }
+
+        TrelloPowerUp.initialize({
+            'card-badges': function(t, options) {
+                return t.card('due')
+                    .then(function(card) {
+                        if (card.due) {
+                            var dueDate = new Date(card.due);
+                            var shamsiDate = convertToShamsi(dueDate);
+                            return [{
+                                text: shamsiDate,
+                                color: 'green',
+                                icon: TrelloPowerUp.iframe().arg('baseUrl') + 'images/icon.svg', // Optional: path to an icon
+                            }];
+                        } else {
+                            return [];
+                        }
+                    });
+            },
+        });
+    </script>
+</body>
+</html>
